@@ -1,0 +1,122 @@
+{% extends 'basic.html' %}
+{% block title %}Home{% endblock %}
+
+{% block css %}
+
+.col-md-3
+{
+display: inline-block;
+margin-left:-4px;
+}
+.align-items-center{
+bottom: -40px;
+}
+.carousel-indicators .active {
+background-color: blue;
+}
+
+body .carousel-indicator li{
+background-color: blue;
+}
+body .carousel-indicators{
+bottom: -40px;
+}
+.carousel-indicators li{
+background-color: #7270fc;
+}
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+height: 38px;
+width: 30px;
+background-color: blue;
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+top: auto;
+bottom: auto;
+padding-top: 130px;
+}
+
+
+.form-control-borderless {
+border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+border: none;
+outline: none;
+box-shadow: none;
+}
+{% endblock %}
+{% block body %}
+<section class="d-flex justify-content-center align-items-center flex-column"
+    style="background: rgb(120,120,120) url('/media/2.jpg');background-size:cover;background-position:center;height:90vh; ">
+    <div Class="container">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+            integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form class="card card-sm" method='get' action="/search/">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-control-borderless" name='search'
+                                id='search' type="search" placeholder="Search your topics or Doubts" autocomplete="off">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit">Search</button>
+                        </div>
+                        <!--end of col-->
+                    </div>
+                </form>
+            </div>
+            <!--end of col-->
+        </div>
+
+
+    </div>
+
+
+    <div class="secondContainer d-flex flex-column align-items-start" style="padding-top:100px;">
+        <h3 style="color:red;">NCERT Solutions</h3>
+        <h4 style="color:red;">Watch Free Video Solutions for all NCERT Questions</h4>
+        <div class="container p-0 mt-3" style="max-width:1089px;background-color: rgb(230, 230, 230);">
+
+            {% for videos, range, nSlides in allVideos %}
+            <div class="row">
+                <div id="demo{{forloop.counter}}" class="col carousel slide my-3">
+                    <div class="container carousel-inner no-padding">
+                        <div class="carousel-item active">
+                            {% for i in videos %}
+                            <iframe width="350" height="200" src="{{i.video}}" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+
+                            {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+                        </div>
+
+                        <div class="carousel-item">
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- left and right controls for the slide -->
+                <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+{% endblock %}
