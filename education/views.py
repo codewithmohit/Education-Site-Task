@@ -10,15 +10,18 @@ from datetime import date
 from django.contrib.auth.models import User
 # Create your views here.
 
+i=0
 def home(request):
+    global i
     videos=Ncert.objects.all()
     allVideos=[]
     n = len(videos)
     nSlides = n // 3 + ceil((n / 3) - (n // 3))
     allVideos.append([videos, range(1, nSlides), nSlides])
+    if i==0:
+        handleLogout(request)
+        i=1
     params={'allVideos':allVideos}
-    # import pdb;
-    # pdb.set_trace()
     return render(request,'home.html',params)
 
 def signup(request):
